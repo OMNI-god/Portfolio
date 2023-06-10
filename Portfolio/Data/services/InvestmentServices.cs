@@ -24,7 +24,7 @@ namespace Portfolio.Data.services
             db.investments.Add(investment);
             db.SaveChanges();
         }
-
+        
         public Investment getbyid(int id)
         {
             return db.investments.FirstOrDefault(x => x.Id == id);
