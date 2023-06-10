@@ -31,8 +31,9 @@ namespace Portfolio.Data.services
 
         public List<Investment> getAll()
         {
-            ledger();
             duration();
+            matured();
+            ledger();
             return db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
         }
 
@@ -137,27 +138,28 @@ namespace Portfolio.Data.services
             }
 
         }
-        //private void matured()
-        //{
-        //    var data=db.investments.Where(x=>x.Maturity_Date>DateTime.Today).ToList();
-        //    foreach(var item in data)
-        //    {
-        //        db.logs.Add(
-        //            new Logs
-        //            {
-        //                Number = item.Number,
-        //                Bank_Name= item.Bank_Name,
-        //                Type=item.Type,
-        //                ROI=item.ROI,
-        //                Investment_Start_Date=item.Investment_Start_Date,
-        //                Maturity_Date=item.Maturity_Date,
-        //                Investment_Amount=item.Investment_Amount,
-        //                Maturity_Amount=item.Investment_Amount,
-        //                Uemail=item.Uemail
-        //            }
-        //                );
-        //           db.investments.Remove( item );
-        //    }
-        //}
+        private void matured()
+        {
+            var data = db.investments.Where(x => x.Maturity_Date < DateTime.Today&&x.Uemail==session.HttpContext.Session.GetString("email")).ToList();
+            foreach (var item in data)
+            {
+                db.logs.Add(
+                    new Logs{
+                        Number = item.Number,
+                        Bank_Name = item.Bank_Name,
+                        Type = item.Type,
+                        ROI = item.ROI,
+                        Investment_Start_Date = item.Investment_Start_Date,
+                        Maturity_Date = item.Maturity_Date,
+                        Investment_Amount = item.Investment_Amount,
+                        Maturity_Amount = item.Investment_Amount,
+                        Uemail = item.Uemail
+                    }
+                        );
+                
+                db.investments.Remove(item);
+                db.SaveChanges();
+            }
+        }
     }
 }
