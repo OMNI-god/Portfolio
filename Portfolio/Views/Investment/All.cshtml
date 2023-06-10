@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Portfolio.Models.Investment>
+
+@{
+    ViewData["Title"] = "All";
+    string inv = session.HttpContext.Session.GetString("inv");
+    string mat = session.HttpContext.Session.GetString("mat");
+}
+
+<h1 class="text-center" style="color:red">All Investments </h1>
+@if(Model.Count()>0){
+    <h2 class="text-center">
+        <a id="investment" style="color:goldenrod" >Invested : @inv </a>
+        <a id="Return" style="color:mediumseagreen">Maturity Amount: @mat </a>
+    </h2>
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+               Bank Name
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                ROI
+            </th>
+            <th>
+                Investment Start Date
+            </th>
+            <th>
+               Maturity Date
+            </th>
+            <th>
+                Investment Amount
+            </th>
+            <th>
+                Maturity Amount
+            </th>
+            <th>
+                Time Left To Mature
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @item.Number
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Investment_Start_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maturity_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Investment_Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maturity_Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time_Left_To_Mature)
+            </td>
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}else{
+    <h1>NO RECORDS</h1>
+}
