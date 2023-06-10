@@ -13,7 +13,7 @@
         <a id="Return" style="color:mediumseagreen">Maturity Amount: @mat </a>
     </h2>
 <p>
-    <a class="btn btn-primary text-center" asp-action="Create">Create</a>
+    <a class="btn btn-primary" asp-action="Create">Add</a>
 </p>
 
 <table class="table">
@@ -80,9 +80,9 @@
                 @Html.DisplayFor(modelItem => item.Time_Left_To_Mature)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -24,7 +24,7 @@ namespace Portfolio.Data.services
             db.investments.Add(investment);
             db.SaveChanges();
         }
-        
+        //
         public Investment getbyid(int id)
         {
             return db.investments.FirstOrDefault(x => x.Id == id);
@@ -84,14 +84,14 @@ namespace Portfolio.Data.services
                     item.Time_Left_To_Mature = data.ToString();
                     item.lastUpdate=DateTime.Today;
                     db.SaveChanges();
-                    return Math.Abs(data).ToString() + " left";
+                    return Math.Abs(data).ToString() + " days left";
                 }
                 else
                 {
                     item.Time_Left_To_Mature = data.ToString();
                     item.lastUpdate = DateTime.Today;
                     db.SaveChanges();
-                    return Math.Abs(data).ToString() + " overdue";
+                    return Math.Abs(data).ToString() + " days overdue";
                 }
             }
             return item.Time_Left_To_Mature;
@@ -107,13 +107,13 @@ namespace Portfolio.Data.services
                     var data = (DateTime.Today - item.Maturity_Date).TotalDays;
                     if (data < 0)
                     {
-                        item.Time_Left_To_Mature = Math.Abs(data).ToString() + " left";
+                        item.Time_Left_To_Mature = Math.Abs(data).ToString() + " days left";
                         item.lastUpdate = DateTime.Today;
                         db.SaveChanges();
                     }
                     else
                     {
-                        item.Time_Left_To_Mature = Math.Abs(data).ToString() + " overdue";
+                        item.Time_Left_To_Mature = Math.Abs(data).ToString() + " days overdue";
                         item.lastUpdate = DateTime.Today;
                         db.SaveChanges();
                     }
@@ -123,13 +123,13 @@ namespace Portfolio.Data.services
                     var data = (DateTime.Today - item.Maturity_Date).TotalDays;
                     if (data < 0)
                     {
-                        item.Time_Left_To_Mature = Math.Abs(data).ToString()+" left";
+                        item.Time_Left_To_Mature = Math.Abs(data).ToString()+" days left";
                         item.lastUpdate = DateTime.Today;
                         db.SaveChanges();
                     }
                     else
                     {
-                        item.Time_Left_To_Mature = Math.Abs(data).ToString()+" overdue";
+                        item.Time_Left_To_Mature = Math.Abs(data).ToString()+" days overdue";
                         item.lastUpdate = DateTime.Today;
                         db.SaveChanges();
                     }
