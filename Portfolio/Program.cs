@@ -11,6 +11,7 @@ builder.Services.AddDbContext<AppliDB>(o => o.UseSqlServer(builder.Configuration
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IInvestmentServices,InvestmentServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ILogsServices, LogsServices>();
 builder.Services.AddSession(o => o.IdleTimeout = TimeSpan.FromMinutes(5));
 var app = builder.Build();
 
