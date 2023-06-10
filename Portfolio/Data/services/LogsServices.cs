@@ -6,18 +6,16 @@ namespace Portfolio.Data.services
     public class LogsServices : ILogsServices
     {
         private readonly AppliDB db;
-        public LogsServices(AppliDB db)
+        private readonly IHttpContextAccessor session;
+        public LogsServices(AppliDB db, IHttpContextAccessor session)
         {
             this.db = db;
-        }
-        public void add(Logs log)
-        {
-            throw new NotImplementedException();
-        }
+            this.session = session;
 
+        }
         public List<Logs> getall()
         {
-            return (db.logs.ToList());
+            return db.logs.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
         }
     }
 }

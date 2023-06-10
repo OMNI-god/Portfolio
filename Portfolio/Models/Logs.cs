@@ -6,11 +6,23 @@ namespace Portfolio.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        [Required]
+        public string Number { get; set; }
+        [Required]
+        public string Bank_Name { get; set; }
+        [Required]
+        public string Type { get; set; }
+        [Required]
+        public string ROI { get; set; }
+        [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
-        public string Mode { get; set; }
-        public string Mode_Id { get; set; }
-        public double Amount { get; set; }
+        public DateTime Investment_Start_Date { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Maturity_Date { get; set; }
+        [Required]
+        public double Investment_Amount { get; set; }
+        public double Maturity_Amount { get; set; }
+        public string Uemail { get; set; }
+        
     }
 }
