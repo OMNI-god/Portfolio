@@ -15,7 +15,7 @@ namespace Portfolio.Data.services
         }
         public List<Logs> getall()
         {
-            return (db.logs.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList());
+            return db.logs.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
         }
     }
 }

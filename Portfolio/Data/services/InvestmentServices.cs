@@ -31,8 +31,8 @@ namespace Portfolio.Data.services
 
         public List<Investment> getAll()
         {
-            duration();
             ledger();
+            duration();
             return db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
         }
 
