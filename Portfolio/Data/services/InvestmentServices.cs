@@ -156,7 +156,7 @@ namespace Portfolio.Data.services
                         Uemail = item.Uemail
                     }
                         );
-                db.logs.Count();
+                
                 db.investments.Remove(item);
                 db.SaveChanges();
             }
