@@ -6,13 +6,23 @@ namespace Portfolio.Controllers
     public class LogsController : Controller
     {
         private readonly ILogsServices service;
-        public LogsController(ILogsServices service)
+        private readonly IHttpContextAccessor session;
+        public LogsController(ILogsServices service, IHttpContextAccessor session)
         {
             this.service = service;
+            this.session = session;
+
         }
         public IActionResult Index()
         {
-            return View(service.getall());
+            if (this.session != null)
+            {
+                return View(service.getall());
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
         }
     }
 }
