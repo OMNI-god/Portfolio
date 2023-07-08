@@ -7,16 +7,18 @@
 }
 
 <h1 class="text-center" style="color:red">All Investments </h1>
+@if (Model.Count() > 0)
+{
+    <h2 class="text-center">
+        <a id="investment" style="color:goldenrod">Invested : @inv </a>
+        <a id="Return" style="color:mediumseagreen">Maturity Amount: @mat </a>
+    </h2>
+}
 <p>
     <a class="btn btn-primary" asp-action="Create">Add</a>
 </p>
 
 @if(Model.Count()>0){
-    <h2 class="text-center">
-        <a id="investment" style="color:goldenrod" >Invested : @inv </a>
-        <a id="Return" style="color:mediumseagreen">Maturity Amount: @mat </a>
-    </h2>
-
 <table class="table">
     <thead>
         <tr>
