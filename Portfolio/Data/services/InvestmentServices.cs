@@ -9,7 +9,7 @@ namespace Portfolio.Data.services
     {
         private readonly AppliDB db;
         private readonly IHttpContextAccessor session;
-        public InvestmentServices(AppliDB db, IHttpContextAccessor session)
+        public InvestmentServices(AppliDB db, IHttpContextAccessor session,ILogsServices services)
         {
             this.db = db;
             this.session = session;
@@ -156,7 +156,6 @@ namespace Portfolio.Data.services
                         Uemail = item.Uemail
                     }
                         );
-                
                 db.investments.Remove(item);
                 db.SaveChanges();
             }

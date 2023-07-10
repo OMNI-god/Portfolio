@@ -17,5 +17,11 @@ namespace Portfolio.Data.services
         {
             return db.logs.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
         }
+
+        public void Add(Logs log)
+        {
+            db.logs.Add(log);
+            db.SaveChanges();
+        }
     }
 }
