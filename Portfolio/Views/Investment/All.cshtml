@@ -4,6 +4,7 @@
     ViewData["Title"] = "All";
     string inv = session.HttpContext.Session.GetString("inv");
     string mat = session.HttpContext.Session.GetString("mat");
+    double interest = Convert.ToDouble(mat) - Convert.ToDouble(inv);
 }
 
 <h1 class="text-center" style="color:red">All Investments </h1>
@@ -11,7 +12,8 @@
 {
     <h2 class="text-center">
         <a id="investment" style="color:goldenrod">Invested : @inv </a>
-        <a id="Return" style="color:mediumseagreen">Maturity Amount: @mat </a>
+        <a id="Return" style="color:mediumseagreen">Maturity Amount : @mat </a>
+        <a id="Profit" style="color:mediumseagreen">Interest Amount : @interest </a>
     </h2>
 }
 <p>

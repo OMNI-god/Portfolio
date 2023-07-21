@@ -1,5 +1,7 @@
 ﻿// Function to check if the user prefers dark mode and switch CSS accordingly
 function checkAndSetDarkMode() {
+
+
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // User prefers dark mode
         document.getElementById('theme-stylesheet').setAttribute('href', '/css/dark.css');
