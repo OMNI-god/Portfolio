@@ -19,70 +19,70 @@
 </p>
 
 @if(Model.Count()>0){
-<table class="table">
+<table class="table ">
     <thead>
         <tr>
-            <th>
+            <th class="t-ui">
                 Number
             </th>
-            <th>
+                <th class="t-ui">
                Bank Name
             </th>
-            <th>
+                <th class="t-ui">
                 Type
             </th>
-            <th>
+                <th class="t-ui">
                 ROI
             </th>
-            <th>
+                <th class="t-ui">
                 Investment Start Date
             </th>
-            <th>
+                <th class="t-ui">
                Maturity Date
             </th>
-            <th>
+                <th class="t-ui">
                 Investment Amount
             </th>
-            <th>
+                <th class="t-ui">
                 Maturity Amount
             </th>
-            <th>
+                <th class="t-ui">
                 Time Left To Mature
             </th>
-            <th></th>
+                <th class="t-ui"></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-                <td>
+                    <td class="t-ui">
                     @item.Number
                 </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Bank_Name)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.ROI)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Investment_Start_Date)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Maturity_Date)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Investment_Amount)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Maturity_Amount)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Time_Left_To_Mature)
             </td>
-            <td>
+                    <td class="t-ui">
                 <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

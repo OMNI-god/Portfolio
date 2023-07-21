@@ -1,0 +1,13 @@
+﻿/* styles.css */
+body {
+    background-color: #222;
+    color: #fff;
+
+}
+th,td{
+    color:snow
+}
+.nav-text{
+    color:aliceblue
+}
+/* Add more styles for dark mode as needed */

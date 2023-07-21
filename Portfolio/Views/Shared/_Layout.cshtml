@@ -14,14 +14,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Portfolio</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" id="theme-stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Portfolio.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 </head>
 <body style="margin:auto;padding:0">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  box-shadow navbar-dark bg-primary text-light" style="margin:0;padding:0">
+        <nav class=" nav navbar navbar-expand-sm navbar-toggleable-sm box-shadow " style="margin:0;padding:0">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Portfolio</a>
+                <a class="navbar-brand nav-link nav-text" asp-area="" asp-controller="Home" asp-action="Index">Portfolio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,28 +32,28 @@
                         @if (login.Equals("false"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link nav-text " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Investment" asp-action="All">Home</a>
+                                <a class="nav-link nav-text" asp-area="" asp-controller="Investment" asp-action="All">Home</a>
                             </li>
                         }
                         @if (login.Equals("true"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Logs" asp-action="Index">Logs</a>
+                                <a class="nav-link nav-text" asp-area="" asp-controller="Logs" asp-action="Index">Logs</a>
                             </li>
                         }
                         @if (login.Equals("false"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                                <a class="nav-link nav-text" asp-area="" asp-controller="User" asp-action="Register">Register</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                <a class="nav-link nav-text" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                             </li>
                         }
                     </ul>
@@ -60,7 +61,7 @@
                     {
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <p class="navbar-text text-md-center text-dark" style="height: 31px;padding-top: 8px;padding-bottom: 0px;margin-bottom: 0px;padding-left: 10px;">Welcome! @name</p>
+                                <p class="nav navbar-text nav-link nav-text text-md-center" style="height: 31px;padding-top: 8px;padding-bottom: 0px;margin-bottom: 0px;padding-left: 10px;">Welcome! @name</p>
                             </li>
                             <li class="nav-item">
                                 <a class="btn btn-outline-danger" asp-controller="User" asp-action="Logout" style="margin-left:10px">Logout</a>
@@ -68,6 +69,9 @@
 
                         </ul>
                     }
+                    @*<ul>
+                        <button id="theme-toggle-button">Toggle Theme</button>
+                    </ul>*@
                 </div>
             </div>
         </nav>
@@ -86,6 +90,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,8 @@
+﻿/* custom.css */
+/* Override the hover effect for anchor tags with the nav-link class */
+.navbar-nav .nav-link:hover {
+    /* Set styles to change or disable the hover effect */
+    text-decoration: none; /* Remove underline on hover */
+    color:cyan ; /* Change the text color on hover to red (or use 'inherit' to inherit from parent) */
+    /* Add other styles to customize the hover effect, if needed */
+}
