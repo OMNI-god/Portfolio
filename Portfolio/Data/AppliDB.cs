@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio.Models;
+using System.Configuration;
 
 namespace Portfolio.Data
 {
@@ -9,6 +10,7 @@ namespace Portfolio.Data
         {
             
         }
+        
         public DbSet<Investment> investments { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<Logs> logs { get; set; }
