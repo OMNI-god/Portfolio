@@ -69,9 +69,7 @@
 
                         </ul>
                     }
-                    @*<ul>
-                        <button id="theme-toggle-button">Toggle Theme</button>
-                    </ul>*@
+         
                 </div>
             </div>
         </nav>
@@ -82,9 +80,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted fixed-bottom text-md-center">
-        <div class="container">
+    <footer class="border-top footer text-muted fixed-bottom text-md-center" style="inset-inline-end">
+        <div class="container" style="display:inline-flex;justify-content:center">
             &copy; @DateTime.Now.Year - Portfolio - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div>
+                <p style="cursor: pointer;" id="ui"></p>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
