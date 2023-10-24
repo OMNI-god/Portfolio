@@ -100,5 +100,10 @@ namespace Portfolio.Controllers
                     return Redirect("/User/Login/");
                 }
         }
+        public IActionResult Restore(int id)
+        {
+            services.restore(id);
+            return Redirect("/Logs/Index/");
+        }
     }
 }

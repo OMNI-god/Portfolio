@@ -21,6 +21,11 @@ namespace Portfolio.Controllers
         [HttpPost]
         public IActionResult Register(User user)
         {
+            if (services.getUser(user.EmailId))
+            {
+                ModelState.AddModelError("", "Email is already registered");
+                return View();
+            }
             services.register(user);
             return Redirect("/User/Login/");
         }
@@ -43,6 +48,7 @@ namespace Portfolio.Controllers
             }
             
         }
+        
         public IActionResult Logout()
         {
             services.logout();

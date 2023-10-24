@@ -24,5 +24,10 @@ namespace Portfolio.Controllers
                 return Redirect("/User/Login/");
             }
         }
+        public IActionResult Delete(int id)
+        {
+            service.delete(id);
+            return View("Index");
+        }
     }
 }

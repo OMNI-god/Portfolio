@@ -61,4 +61,3 @@ if (data!=1) {
 }
 document.addEventListener('DOMContentLoaded', currentTheme);
 document.querySelector("#ui").addEventListener("click", getTheme);
-

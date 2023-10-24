@@ -13,6 +13,11 @@ namespace Portfolio.Data.services
             this.session = session;
         }
 
+        public bool getUser(string mailID)
+        {
+            return db.users.Any(x => x.EmailId.Equals(mailID));
+        }
+
         public void login(User user)
         {
             var data = db.users.FirstOrDefault(x => x.EmailId == user.EmailId && x.Password == user.Password);

@@ -9,6 +9,6 @@ namespace Portfolio.Data.Iservices
         void remove(int id);
         void update(Investment investment);
         Investment getbyid(int id);
-
+        void restore(int id);
     }
 }
