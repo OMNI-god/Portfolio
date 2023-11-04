@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using OfficeOpenXml;
 using Portfolio.Data.Iservices;
 using Portfolio.Models;
+using System.Data;
+using System.Reflection;
 
 namespace Portfolio.Data.services
 {
@@ -36,12 +39,13 @@ namespace Portfolio.Data.services
             duration();
             matured();
             ledger();
-            return getData();
+            return getData().ToList();
         }
 
-        public List<Investment> getData()
+        public IEnumerable<Investment> getData()
         {
-            return db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
+            var data = db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email"));
+            return data;
         }
 
         private void ledger()
@@ -203,10 +207,20 @@ namespace Portfolio.Data.services
             db.SaveChanges();
         }
 
-        public void downloadDetails()
+        public byte[] downloadDetails()
         {
-            var data = getData();
-
+            var data = getData().ToList();
+            byte[] excelFileBytes;
+            using (var excel =new ExcelPackage())
+            {
+                var worksheet = excel.Workbook.Worksheets.Add("Investments");
+                worksheet.Cells["A1"].LoadFromCollection(data,true);
+                worksheet.DeleteColumn(1);
+                worksheet.DeleteColumn(10);
+                worksheet.Cells.AutoFitColumns();
+                excelFileBytes=excel.GetAsByteArray();
+            }
+            return excelFileBytes;
         }
     }
 }

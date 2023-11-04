@@ -43,26 +43,30 @@ namespace Portfolio.Data.services
                 if (!user.Last_update_date.HasValue && (user.DOJ.Value.Month < DateTime.Now.Month || DateTime.Now > user.DOJ.Value.Date))
                 {
                     double diff = (DateTime.Now.Year - user.DOJ.Value.Year) * 12 + (DateTime.Now.Month - user.DOJ.Value.Month);
-                    if (salary > 0)
+                    if (salary > 0 && diff > 0)
                     {
                         salary *= diff;
                         total_savings += salary + bank_return;
+                        user.Last_update_date = DateTime.Now.Date;
+                        user.Total_savings = total_savings;
+                        db.users.Update(user);
+                        db.SaveChanges();
                     }
                 }
                 else if(user.Last_update_date.Value.Month< DateTime.Now.Month || DateTime.Now > user.DOJ.Value.Date)
                 {
                     double diff = (DateTime.Now.Year - user.Last_update_date.Value.Year) * 12 + (DateTime.Now.Month - user.Last_update_date.Value.Month);
-                    if (salary > 0)
+                    if (salary > 0 && diff > 0)
                     {
                         salary *= diff;
                         total_savings += salary + bank_return;
+                        user.Last_update_date = DateTime.Now.Date;
+                        user.Total_savings = total_savings;
+                        db.users.Update(user);
+                        db.SaveChanges();
                     }
                 }
-                user.Last_update_date = DateTime.Now;
-                user.Total_savings = total_savings;
             }
-            db.users.Update(user);
-            db.SaveChanges();
         }
 
         public void logout()
@@ -72,7 +76,6 @@ namespace Portfolio.Data.services
 
         public void register(User user)
         {
-            user.Last_update_date = DateTime.Now;
             db.users.Add(user);
             db.SaveChanges();
         }

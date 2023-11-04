@@ -16,8 +16,9 @@
         <a id="Profit" style="color:mediumseagreen">Interest Amount : @interest </a>
     </h2>
 }
-<p style="padding-left:10px">
+<p style="padding-left:10px;padding-right:10px">
     <a class="btn btn-primary" asp-action="Create">Add</a>
+    <a class="btn btn-primary" asp-action="Download" style="float:right">Download</a>
 </p>
 
 @if(Model.Count()>0){

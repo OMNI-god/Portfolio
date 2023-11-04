@@ -105,5 +105,13 @@ namespace Portfolio.Controllers
             services.restore(id);
             return Redirect("/Logs/Index/");
         }
+
+        public IActionResult Download()
+        {
+            var excelFileBytes= services.downloadDetails();
+            var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            var fileName = "Investments.xlsx";
+            return File(excelFileBytes, contentType, fileName);
+        }
     }
 }
