@@ -36,6 +36,11 @@ namespace Portfolio.Data.services
             duration();
             matured();
             ledger();
+            return getData();
+        }
+
+        public List<Investment> getData()
+        {
             return db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
         }
 
@@ -196,6 +201,12 @@ namespace Portfolio.Data.services
             add(i);
             db.logs.Remove(data);
             db.SaveChanges();
+        }
+
+        public void downloadDetails()
+        {
+            var data = getData();
+
         }
     }
 }

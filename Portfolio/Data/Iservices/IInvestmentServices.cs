@@ -10,5 +10,6 @@ namespace Portfolio.Data.Iservices
         void update(Investment investment);
         Investment getbyid(int id);
         void restore(int id);
+        void downloadDetails();
     }
 }

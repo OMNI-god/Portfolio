@@ -19,8 +19,15 @@ namespace Portfolio.Models
         [Required]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-        [Required]
-        [DataType(DataType.Currency)]
-        public double Salary { get;set; }
+        public double? Salary { get;set; }
+        [DataType(DataType.Date)]
+        public DateTime? DOJ {  get; set; }  
+        public double? Banking_return { get; set; }
+        public double? Stock_return { get; set; }
+        public double? SIP_return { get; set; }
+        public double? Miscellaneous_return { get; set; }
+        public double? Total_savings { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Last_update_date { get; set; }
     }
 }

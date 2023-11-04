@@ -51,8 +51,8 @@ namespace Portfolio.Controllers
             else
             {
                 return Redirect("/User/Login/");
-    }
-}
+            }
+        }
         public IActionResult Delete(int id)
         {
             if (session.HttpContext.Session.GetString("login") == "true")
