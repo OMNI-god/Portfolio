@@ -23,6 +23,7 @@ namespace Portfolio.Models
         public double Investment_Amount { get; set; }
         public double Maturity_Amount { get; set; }
         public string Uemail { get; set; }
+        public string Action { get; set; }
         
     }
 }

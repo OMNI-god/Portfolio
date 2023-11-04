@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using OfficeOpenXml;
 using Portfolio.Data.Iservices;
 using Portfolio.Models;
+using System.Data;
+using System.Reflection;
 
 namespace Portfolio.Data.services
 {
@@ -9,18 +12,20 @@ namespace Portfolio.Data.services
     {
         private readonly AppliDB db;
         private readonly IHttpContextAccessor session;
-        public InvestmentServices(AppliDB db, IHttpContextAccessor session)
+        private readonly ILogsServices services;
+        public InvestmentServices(AppliDB db, IHttpContextAccessor session,ILogsServices services)
         {
             this.db = db;
             this.session = session;
+            this.services=services;
         }
 
         public void add(Investment investment)
         {
+            investment.Bank_Name = investment.Bank_Name.ToUpper();
             investment.Time_Left_To_Mature = duration(investment);
             investment.Uemail = session.HttpContext.Session.GetString("email");
             investment.lastUpdate = DateTime.Today;
-            investment.Time_Left_To_Mature = duration(investment);
             db.investments.Add(investment);
             db.SaveChanges();
         }
@@ -34,7 +39,13 @@ namespace Portfolio.Data.services
             duration();
             matured();
             ledger();
-            return db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email")).ToList();
+            return getData().ToList();
+        }
+
+        public IEnumerable<Investment> getData()
+        {
+            var data = db.investments.Where(x => x.Uemail == session.HttpContext.Session.GetString("email"));
+            return data;
         }
 
         private void ledger()
@@ -53,7 +64,21 @@ namespace Portfolio.Data.services
 
         public void remove(int id)
         {
-            db.investments.Remove(getbyid(id));
+            var data = getbyid(id);
+            db.investments.Remove(data);
+            services.add(new Logs
+            {
+                Number=data.Number,
+                Bank_Name=data.Bank_Name,
+                Type=data.Type,
+                ROI=data.ROI,
+                Investment_Start_Date=data.Investment_Start_Date,
+                Maturity_Date=data.Maturity_Date,
+                Investment_Amount=data.Investment_Amount,
+                Maturity_Amount=data.Maturity_Amount,
+                Uemail=data.Uemail,
+                Action="Deleted"
+            });
             db.SaveChanges();
         }
 
@@ -144,7 +169,8 @@ namespace Portfolio.Data.services
             foreach (var item in data)
             {
                 db.logs.Add(
-                    new Logs{
+                    new Logs
+                    {
                         Number = item.Number,
                         Bank_Name = item.Bank_Name,
                         Type = item.Type,
@@ -152,14 +178,54 @@ namespace Portfolio.Data.services
                         Investment_Start_Date = item.Investment_Start_Date,
                         Maturity_Date = item.Maturity_Date,
                         Investment_Amount = item.Investment_Amount,
-                        Maturity_Amount = item.Investment_Amount,
-                        Uemail = item.Uemail
+                        Maturity_Amount = item.Maturity_Amount,
+                        Uemail = item.Uemail,
+                        Action ="Matured"
                     }
                         );
-                
                 db.investments.Remove(item);
                 db.SaveChanges();
             }
+        }
+
+        public void restore(int id)
+        {
+            var data = db.logs.FirstOrDefault(x => x.Id == id);
+            Investment i = new Investment
+            {
+                Number = data.Number,
+                Bank_Name = data.Bank_Name,
+                Type = data.Type,
+                ROI = data.ROI,
+                Investment_Start_Date = data.Investment_Start_Date,
+                Maturity_Date = data.Maturity_Date,
+                Investment_Amount = data.Investment_Amount,
+                Maturity_Amount = data.Maturity_Amount,
+            };
+            add(i);
+            db.logs.Remove(data);
+            db.SaveChanges();
+        }
+
+        public byte[] downloadDetails()
+        {
+            var data = getData().ToList();
+            byte[] excelFileBytes;
+            using (var excel =new ExcelPackage())
+            {
+                var worksheet = excel.Workbook.Worksheets.Add("Investments");
+                worksheet.Cells["A1"].LoadFromCollection(data,true);
+                worksheet.DeleteColumn(1);
+                worksheet.DeleteColumn(10,11);
+                worksheet.Cells.AutoFitColumns();
+                excelFileBytes=excel.GetAsByteArray();
+            }
+            return excelFileBytes;
+        }
+
+        public void upload(IFormFile file)
+        {
+            throw new NotImplementedException();
         }
     }
 }

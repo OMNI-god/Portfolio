@@ -4,11 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Investment</h4>
+<h2 class="text-center">Add Investment</h2>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -18,7 +16,7 @@
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Bank_Name" class="control-label"></label>
+                <label asp-for="Bank_Name" class="control-label">Bank Name</label>
                 <input asp-for="Bank_Name" class="form-control" />
                 <span asp-validation-for="Bank_Name" class="text-danger"></span>
             </div>
@@ -33,36 +31,34 @@
                 <span asp-validation-for="ROI" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Investment_Start_Date" class="control-label"></label>
+                <label asp-for="Investment_Start_Date" class="control-label">Investment Star tDate</label>
                 <input asp-for="Investment_Start_Date" class="form-control" />
                 <span asp-validation-for="Investment_Start_Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Maturity_Date" class="control-label"></label>
+                <label asp-for="Maturity_Date" class="control-label">Maturity Date</label>
                 <input asp-for="Maturity_Date" class="form-control" />
                 <span asp-validation-for="Maturity_Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Investment_Amount" class="control-label"></label>
+                <label asp-for="Investment_Amount" class="control-label">Investment Amount</label>
                 <input asp-for="Investment_Amount" class="form-control" />
                 <span asp-validation-for="Investment_Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Maturity_Amount" class="control-label"></label>
+                <label asp-for="Maturity_Amount" class="control-label">Maturity Amount</label>
                 <input asp-for="Maturity_Amount" class="form-control" />
                 <span asp-validation-for="Maturity_Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group" style="padding-top:10px">
+                <input type="submit" value="Create" class="btn btn-success" />
+            
+                <a asp-action="All" class="btn btn-primary">Home</a>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

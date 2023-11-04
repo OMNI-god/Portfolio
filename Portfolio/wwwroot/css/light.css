@@ -1,0 +1,12 @@
+﻿/* light-mode.css */
+body {
+    background-color: #e0dec3;
+    color: #333;
+}
+nav {
+    color: lightcyan
+}
+.nav-text{
+    color:aliceblue
+}
+/* Add more styles for light mode as needed */

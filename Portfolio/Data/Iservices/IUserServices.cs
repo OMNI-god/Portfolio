@@ -7,5 +7,6 @@ namespace Portfolio.Data.Iservices
         void register(User user);
         void login(User user);
         void logout();
+        bool getUser(string mailID);
     }
 }

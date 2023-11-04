@@ -1,0 +1,12 @@
+﻿stock API key : 7Y01PGKXRCTW78ME
+// replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+string QUERY_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=7Y01PGKXRCTW78ME"
+
+Currency
+https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=INR&apikey=7Y01PGKXRCTW78ME
+<script async src="https://cse.google.com/cse.js?cx=4446ccf8473964d58">
+</script>
+<div class="gcse-search"></div>
+AIzaSyCj1myJYJd7ilG3aOXNculjugBBp2q32ec
+azure
+6OUJ0CNMU5IL8656$

@@ -4,88 +4,91 @@
     ViewData["Title"] = "All";
     string inv = session.HttpContext.Session.GetString("inv");
     string mat = session.HttpContext.Session.GetString("mat");
+    double interest = Convert.ToDouble(mat) - Convert.ToDouble(inv);
 }
 
 <h1 class="text-center" style="color:red">All Investments </h1>
 @if (Model.Count() > 0)
 {
     <h2 class="text-center">
-        <a id="investment" style="color:goldenrod">Invested : @inv </a>
-        <a id="Return" style="color:mediumseagreen">Maturity Amount: @mat </a>
+        <a id="investment" style="color:orangered">Invested : @inv </a>
+        <a id="Return" style="color:gold">Maturity Amount : @mat </a>
+        <a id="Profit" style="color:mediumseagreen">Interest Amount : @interest </a>
     </h2>
 }
-<p>
+<p style="padding-left:10px;padding-right:10px">
     <a class="btn btn-primary" asp-action="Create">Add</a>
+    <a class="btn btn-primary" asp-action="Download" style="float:right">Download</a>
 </p>
 
 @if(Model.Count()>0){
-<table class="table">
+<table class="table ">
     <thead>
         <tr>
-            <th>
+            <th class="t-ui">
                 Number
             </th>
-            <th>
+                <th class="t-ui">
                Bank Name
             </th>
-            <th>
+                <th class="t-ui">
                 Type
             </th>
-            <th>
+                <th class="t-ui">
                 ROI
             </th>
-            <th>
+                <th class="t-ui">
                 Investment Start Date
             </th>
-            <th>
+                <th class="t-ui">
                Maturity Date
             </th>
-            <th>
+                <th class="t-ui">
                 Investment Amount
             </th>
-            <th>
+                <th class="t-ui">
                 Maturity Amount
             </th>
-            <th>
+                <th class="t-ui">
                 Time Left To Mature
             </th>
-            <th></th>
+                <th class="t-ui"></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-                <td>
+                    <td class="t-ui">
                     @item.Number
                 </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Bank_Name)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.ROI)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Investment_Start_Date)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Maturity_Date)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Investment_Amount)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Maturity_Amount)
             </td>
-            <td>
+                    <td class="t-ui">
                 @Html.DisplayFor(modelItem => item.Time_Left_To_Mature)
             </td>
-            <td>
+                    <td class="t-ui">
                 <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-danger delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

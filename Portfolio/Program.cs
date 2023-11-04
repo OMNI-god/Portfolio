@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Portfolio.Data;
 using Portfolio.Data.Iservices;
 using Portfolio.Data.services;
@@ -12,7 +14,13 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IInvestmentServices,InvestmentServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILogsServices, LogsServices>();
-builder.Services.AddSession(o => o.IdleTimeout = TimeSpan.FromMinutes(5));
+builder.Services.AddSession(o => { o.IdleTimeout = TimeSpan.FromMinutes(10);
+    o.Cookie.Name = new Random().Next().ToString();
+    o.Cookie.IsEssential = true;
+});
+builder.Services.AddAntiforgery(options => { options.Cookie.Name = new Random().Next().ToString(); });
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\Users\jawda\AppData\Local\ASP.NET\DataProtection-Keys"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Data.Iservices;
 using Portfolio.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Portfolio.Controllers
 {
@@ -51,8 +52,8 @@ namespace Portfolio.Controllers
             else
             {
                 return Redirect("/User/Login/");
-    }
-}
+            }
+        }
         public IActionResult Delete(int id)
         {
             if (session.HttpContext.Session.GetString("login") == "true")
@@ -99,6 +100,39 @@ namespace Portfolio.Controllers
                 {
                     return Redirect("/User/Login/");
                 }
+        }
+        public IActionResult Restore(int id)
+        {
+            services.restore(id);
+            return Redirect("/Logs/Index/");
+        }
+
+        public IActionResult Download()
+        {
+            if (session.HttpContext.Session.GetString("login") == "true")
+            {
+                var excelFileBytes = services.downloadDetails();
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Investments.xlsx";
+                return File(excelFileBytes, contentType, fileName);
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
+        }
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (session.HttpContext.Session.GetString("login") == "true")
+            {
+                services.upload(file);
+                return Redirect("/Investment/All/");
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
         }
     }
 }
