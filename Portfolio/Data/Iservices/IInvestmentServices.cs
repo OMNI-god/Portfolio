@@ -1,4 +1,5 @@
-﻿using Portfolio.Models;
+﻿using OfficeOpenXml;
+using Portfolio.Models;
 
 namespace Portfolio.Data.Iservices
 {
@@ -11,5 +12,6 @@ namespace Portfolio.Data.Iservices
         Investment getbyid(int id);
         void restore(int id);
         byte[] downloadDetails();
+        void upload(IFormFile file);
     }
 }

@@ -216,11 +216,16 @@ namespace Portfolio.Data.services
                 var worksheet = excel.Workbook.Worksheets.Add("Investments");
                 worksheet.Cells["A1"].LoadFromCollection(data,true);
                 worksheet.DeleteColumn(1);
-                worksheet.DeleteColumn(10);
+                worksheet.DeleteColumn(10,11);
                 worksheet.Cells.AutoFitColumns();
                 excelFileBytes=excel.GetAsByteArray();
             }
             return excelFileBytes;
+        }
+
+        public void upload(IFormFile file)
+        {
+            throw new NotImplementedException();
         }
     }
 }

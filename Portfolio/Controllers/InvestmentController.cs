@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Data.Iservices;
 using Portfolio.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Portfolio.Controllers
 {
@@ -108,10 +109,30 @@ namespace Portfolio.Controllers
 
         public IActionResult Download()
         {
-            var excelFileBytes= services.downloadDetails();
-            var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            var fileName = "Investments.xlsx";
-            return File(excelFileBytes, contentType, fileName);
+            if (session.HttpContext.Session.GetString("login") == "true")
+            {
+                var excelFileBytes = services.downloadDetails();
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Investments.xlsx";
+                return File(excelFileBytes, contentType, fileName);
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
+        }
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (session.HttpContext.Session.GetString("login") == "true")
+            {
+                services.upload(file);
+                return Redirect("/Investment/All/");
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
         }
     }
 }
