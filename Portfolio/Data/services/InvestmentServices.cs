@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using Portfolio.Data.Iservices;
 using Portfolio.Models;
 using System.Data;
+using System.Drawing;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Portfolio.Data.services
 {
@@ -225,7 +228,73 @@ namespace Portfolio.Data.services
 
         public void upload(IFormFile file)
         {
-            throw new NotImplementedException();
+            DataTable dt = new DataTable();
+            using(var excel=new ExcelPackage(file.OpenReadStream()))
+            {
+                ExcelWorksheet worksheet = excel.Workbook.Worksheets[0];
+                dt = worksheet.Cells[1, 1, worksheet.Dimension.End.Row, worksheet.Dimension.End.Column].ToDataTable(c =>
+                {
+                    c.FirstRowIsColumnNames = true;
+                });
+            }
+            if(dt!=null && dt.Rows.Count > 0)
+            {
+                addToDatabase(dt);
+            }
+        }
+
+        private void addToDatabase(DataTable dt)
+        {
+            var data=getData().Select(row=>row.Number).ToList();
+            var uncommonData = dt.AsEnumerable()
+                .Where(row => !data.Contains(row["Number"].ToString()))
+                .CopyToDataTable();
+            if(uncommonData!=null && uncommonData.Rows.Count > 0)
+            {
+                foreach(DataRow row in uncommonData.Rows)
+                {
+                    try
+                    {
+                        add(new Investment
+                        {
+                            Number = row["Number"].ToString(),
+                            Bank_Name = row["Bank Name"].ToString(),
+                            Type = row["Type"].ToString(),
+                            ROI = row["ROI"].ToString(),
+                            Investment_Start_Date = (DateTime)row["Investment Start Date"],
+                            Maturity_Date = (DateTime)row["Maturity Date"],
+                            Investment_Amount = (double)row["Investment Amount"],
+                            Maturity_Amount = (double)row["Maturity Amount"]
+                        });
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public byte[] uploatTemplate()
+        {
+            byte[] excelFileBytes;
+            using (var excel = new ExcelPackage())
+            {
+                var worksheet = excel.Workbook.Worksheets.Add("Investments");
+                worksheet.Cells[1, 1].Value = "Number";
+                worksheet.Cells[1, 2].Value = "Bank Name";
+                worksheet.Cells[1, 3].Value = "Type";
+                worksheet.Cells[1, 4].Value = "ROI";
+                worksheet.Cells[1, 5].Value = "Investment Start Date";
+                worksheet.Cells[1, 6].Value = "Maturity Date";
+                worksheet.Cells[1, 7].Value = "Investment Amount";
+                worksheet.Cells[1, 8].Value = "Maturity Amount";
+                worksheet.Cells[1,1,1,8].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                worksheet.Cells[1, 1, 1, 8].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+                worksheet.Columns.AutoFit();
+                excelFileBytes = excel.GetAsByteArray();
+            }
+            return excelFileBytes;
         }
     }
 }

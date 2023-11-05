@@ -36,7 +36,7 @@ namespace Portfolio.Data.services
             bool updateCheck = user.DOJ.HasValue || user.Last_update_date.HasValue;
             if (updateCheck)
             {
-                var Ldata = db.logs.Where(x => x.Uemail == user.EmailId);
+                var Ldata = db.logs.Where(x => x.Uemail == user.EmailId && x.Action.ToLower().Equals("matured"));
                 double salary = user.Salary != null ? user.Salary.Value : 0;
                 double bank_return = Ldata.Sum(x => x.Maturity_Amount);
                 double total_savings = user.Total_savings!=null?user.Total_savings.Value:0;

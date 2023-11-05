@@ -121,6 +121,24 @@ namespace Portfolio.Controllers
                 return Redirect("/User/Login/");
             }
         }
+        public IActionResult Template()
+        {
+            if (session.HttpContext.Session.GetString("login") == "true")
+            {
+                var excelFileBytes = services.uploatTemplate();
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Investments.xlsx";
+                return File(excelFileBytes, contentType, fileName);
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
+        }
+        public IActionResult Upload()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult Upload(IFormFile file)
         {
