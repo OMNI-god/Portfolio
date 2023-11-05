@@ -50,10 +50,12 @@
                 <input asp-for="Maturity_Amount" class="form-control" />
                 <span asp-validation-for="Maturity_Amount" class="text-danger"></span>
             </div>
+            <span style="color:red">For upload use template</span>
             <div class="form-group" style="padding-top:10px">
                 <input type="submit" value="Create" class="btn btn-success" />
-            
                 <a asp-action="All" class="btn btn-primary">Home</a>
+                <a asp-action="Upload" class="btn btn-primary">Upload</a>
+                <a asp-action="Template" class="btn btn-primary">Template</a>
             </div>
         </form>
     </div>
