@@ -220,8 +220,14 @@ namespace Portfolio.Data.services
                 worksheet.Cells["A1"].LoadFromCollection(data,true);
                 worksheet.DeleteColumn(1);
                 worksheet.DeleteColumn(10,11);
+                worksheet.Cells[2, 5, worksheet.Dimension.End.Row, 5]
+                    .Style.Numberformat.Format = "yyyy-mm-dd";
+                worksheet.Cells[2, 6, worksheet.Dimension.End.Row, 6]
+                    .Style.Numberformat.Format = "yyyy-mm-dd";
+                worksheet.Cells[1, 1, 1, 9].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                worksheet.Cells[1, 1, 1, 9].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
                 worksheet.Cells.AutoFitColumns();
-                excelFileBytes=excel.GetAsByteArray();
+                excelFileBytes =excel.GetAsByteArray();
             }
             return excelFileBytes;
         }
@@ -289,9 +295,13 @@ namespace Portfolio.Data.services
                 worksheet.Cells[1, 6].Value = "Maturity Date";
                 worksheet.Cells[1, 7].Value = "Investment Amount";
                 worksheet.Cells[1, 8].Value = "Maturity Amount";
-                worksheet.Cells[1,1,1,8].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                var dateStyle = worksheet.Workbook.Styles.CreateNamedStyle("DateStyle");
+                dateStyle.Style.Numberformat.Format = "dd-mm-yyyy";
+                worksheet.Cells[1, 5, 1, 5].StyleName = "DateStyle";
+                worksheet.Cells[1, 6, 1, 6].StyleName = "DateStyle";
+                worksheet.Cells[1, 1, 1, 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 worksheet.Cells[1, 1, 1, 8].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
-                worksheet.Columns.AutoFit();
+                worksheet.Cells.AutoFitColumns();
                 excelFileBytes = excel.GetAsByteArray();
             }
             return excelFileBytes;

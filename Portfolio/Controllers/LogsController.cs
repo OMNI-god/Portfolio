@@ -27,7 +27,7 @@ namespace Portfolio.Controllers
         public IActionResult Delete(int id)
         {
             service.delete(id);
-            return View("Index");
+            return Redirect("/Logs/Index/");
         }
     }
 }

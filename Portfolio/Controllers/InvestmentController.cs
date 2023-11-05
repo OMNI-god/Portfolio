@@ -137,7 +137,14 @@ namespace Portfolio.Controllers
         }
         public IActionResult Upload()
         {
-            return View();
+            if (session.HttpContext.Session.GetString("login") == "true")
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/User/Login/");
+            }
         }
         [HttpPost]
         public IActionResult Upload(IFormFile file)
