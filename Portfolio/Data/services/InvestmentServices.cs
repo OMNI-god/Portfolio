@@ -253,17 +253,24 @@ namespace Portfolio.Data.services
             {
                 foreach(DataRow row in uncommonData.Rows)
                 {
-                    add(new Investment
+                    try
                     {
-                        Number = row["Number"].ToString(),
-                        Bank_Name = row["Bank Name"].ToString(),
-                        Type = row["Type"].ToString(),
-                        ROI = row["ROI"].ToString(),
-                        Investment_Start_Date = (DateTime)row["Investment Start Date"],
-                        Maturity_Date = (DateTime)row["Maturity Date"],
-                        Investment_Amount = (double)row["Investment Amount"],
-                        Maturity_Amount = (double)row["Maturity Amount"]
-                    });
+                        add(new Investment
+                        {
+                            Number = row["Number"].ToString(),
+                            Bank_Name = row["Bank Name"].ToString(),
+                            Type = row["Type"].ToString(),
+                            ROI = row["ROI"].ToString(),
+                            Investment_Start_Date = (DateTime)row["Investment Start Date"],
+                            Maturity_Date = (DateTime)row["Maturity Date"],
+                            Investment_Amount = (double)row["Investment Amount"],
+                            Maturity_Amount = (double)row["Maturity Amount"]
+                        });
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                 }
             }
         }
