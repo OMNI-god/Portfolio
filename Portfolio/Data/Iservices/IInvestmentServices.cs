@@ -12,7 +12,7 @@ namespace Portfolio.Data.Iservices
         Investment getbyid(int id);
         void restore(int id);
         byte[] downloadDetails();
-        byte[] uploatTemplate();
+        byte[] uploadTemplate();
         void upload(IFormFile file);
     }
 }

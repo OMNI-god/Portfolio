@@ -26,6 +26,7 @@ namespace Portfolio.Data.services
         public void add(Investment investment)
         {
             investment.Bank_Name = investment.Bank_Name.ToUpper();
+            investment.Type = investment.Type.ToUpper();
             investment.Time_Left_To_Mature = duration(investment);
             investment.Uemail = session.HttpContext.Session.GetString("email");
             investment.lastUpdate = DateTime.Today;
@@ -281,7 +282,7 @@ namespace Portfolio.Data.services
             }
         }
 
-        public byte[] uploatTemplate()
+        public byte[] uploadTemplate()
         {
             byte[] excelFileBytes;
             using (var excel = new ExcelPackage())

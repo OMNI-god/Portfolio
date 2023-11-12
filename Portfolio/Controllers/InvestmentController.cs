@@ -125,7 +125,7 @@ namespace Portfolio.Controllers
         {
             if (session.HttpContext.Session.GetString("login") == "true")
             {
-                var excelFileBytes = services.uploatTemplate();
+                var excelFileBytes = services.uploadTemplate();
                 var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 var fileName = "Investments.xlsx";
                 return File(excelFileBytes, contentType, fileName);
